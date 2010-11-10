@@ -9,6 +9,8 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 
+gem 'haml', :git => 'https://github.com/nex3/haml.git'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

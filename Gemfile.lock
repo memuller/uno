@@ -8,6 +8,12 @@ GIT
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
 
+GIT
+  remote: https://github.com/nex3/haml.git
+  revision: 0c2eecf2140a9f3646234c83edc60e62e9bd6382
+  specs:
+    haml (3.1.0.alpha.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -86,6 +92,7 @@ PLATFORMS
 
 DEPENDENCIES
   bson_ext
+  haml!
   mongoid!
   rails (= 3.0.1)
   sqlite3-ruby
