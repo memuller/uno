@@ -8,6 +8,13 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Uno
   class Application < Rails::Application
+
+    config.generators do |c|
+      c.orm = :mongoid
+      c.template_engine = :haml
+      c.fixture_replacement = :machinist
+      c.testing_framework = :rspec
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
