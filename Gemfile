@@ -11,6 +11,8 @@ gem 'bson_ext'
 
 gem 'haml', :git => 'https://github.com/nex3/haml.git'
 
+gem 'autotest'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -29,6 +31,7 @@ gem 'haml', :git => 'https://github.com/nex3/haml.git'
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+group :development, :test do
+  gem 'machinist', '>= 2.0.0.beta1'
+  gem 'rspec-rails', "~> 2.0.1"
+end
