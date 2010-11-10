@@ -5,12 +5,13 @@ gem 'rails', '3.0.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
-gem 'haml', :git => 'https://github.com/nex3/haml.git'
+gem 'haml'
+gem "haml-rails"
 
 gem 'autotest'
 
@@ -35,4 +36,6 @@ gem 'autotest'
 group :development, :test do
   gem 'machinist', '>= 2.0.0.beta1'
   gem 'rspec-rails', "~> 2.0.1"
+  #gem 'machinist_mongo'
+  gem 'machinist_mongo', :git => 'https://github.com/nmerouze/machinist_mongo.git', :branch => 'machinist2', :require => 'machinist/mongoid'
 end
