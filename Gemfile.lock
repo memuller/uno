@@ -46,6 +46,7 @@ GEM
     activesupport (3.0.1)
     arel (1.0.1)
       activesupport (~> 3.0.0)
+    autotest (4.4.2)
     bson (1.1.2)
     bson_ext (1.1.2)
     builder (2.1.2)
@@ -105,6 +106,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autotest
   bson_ext
   haml!
   machinist (>= 2.0.0.beta1)
