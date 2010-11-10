@@ -1,4 +1,4 @@
-require 'machinist/active_record'
+require 'machinist/mongoid'
 
 # Add your blueprints here.
 #
@@ -7,3 +7,10 @@ require 'machinist/active_record'
 #     title { "Post #{sn}" }
 #     body  { "Lorem ipsum..." }
 #   end
+
+User.blueprint do
+  email { "user#{sn}@testing.com" }
+  password {'something'}
+  password_confirmation {'something'}
+end
+
