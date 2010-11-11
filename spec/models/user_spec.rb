@@ -72,4 +72,37 @@ describe User do
 
   end
 
+  describe "authentication procedures" do
+    before :all do
+      User.make!(3)
+      @password = 'testing_pass'
+      @user = User.make!(:password => @password, :password_confirmation => @password)
+    end
+    describe "its password in general" do
+      it "should store a bcrypted hash of the password" do
+        BCrypt::Password.new(@user.password_hash).should == @password
+      end
+    end
+    describe "its password_match? method" do
+      it "should return true when there is a match" do
+        @user.password_match?(@password).should be true
+      end
+      it "should return false otherwise" do
+        @user.password_match?('blaa').should be false
+      end
+    end
+    describe "its authenticate method" do
+      it "should return the user if it suceeds" do
+        User.authenticate(@user.email, @password).should == @user
+      end
+      it "should return nil if there is no user found" do
+        fake_mail = User.make.email
+        User.authenticate(fake_mail, 'pass').should be nil
+      end
+      it "should return false if the password doesn't match" do
+        User.authenticate(@user.email, 'this is so wrong').should be false
+      end
+    end
+  end
+
 end

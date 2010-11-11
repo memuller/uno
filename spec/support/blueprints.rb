@@ -10,7 +10,7 @@ require 'machinist/mongoid'
 
 User.blueprint do
   email { "user#{sn}@testing.com" }
-  password {'something'}
-  password_confirmation {'something'}
+  password {'password'}
+  password_confirmation {'password'}
 end
 

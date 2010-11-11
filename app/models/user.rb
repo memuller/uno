@@ -12,7 +12,7 @@ class User
   validates :email, :presence => true, :uniqueness => true, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/ }
   validate :password_checks
   
-  before_save :break_name!
+  before_save :break_name!, :hash_password!
   # Checks if a password matches.
   def password_checks
     if not self.password or not self.password_confirmation
@@ -35,7 +35,22 @@ class User
       self.names_list = self.full_name.strip.split(' ')
     end
   end
-
   
+  # Authentication methods
+  def hash_password!
+    if self.password
+      self.password_hash = BCrypt::Password.create(self.password)
+    end
+  end
+
+  def password_match? arg
+    BCrypt::Password.new(self.password_hash) == arg
+  end
+
+  def self.authenticate mail, pass
+    return nil unless user = User.first(:conditions => { :email => mail } )
+    return user if user.password_match? pass
+    false
+  end
 
 end
