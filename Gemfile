@@ -9,6 +9,8 @@ gem 'rails', '3.0.1'
 gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 gem 'bcrypt-ruby', :require => 'bcrypt'
+#gem "mongoid_session_store"
+
 
 gem 'haml'
 gem "haml-rails"
