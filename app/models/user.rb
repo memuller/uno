@@ -13,6 +13,7 @@ class User
   validate :password_checks
   
   before_save :break_name!, :hash_password!
+
   # Checks if a password matches.
   def password_checks
     if not self.password or not self.password_confirmation
@@ -52,5 +53,16 @@ class User
     return user if user.password_match? pass
     false
   end
+
+  # Session relationships
+  def self.sessions ; ActionDispatch::Session::UnoStore::Session ; end
+  def session
+    if session = self.class.sessions.first(:conditions => {:user_id =>self.id })
+      Marshal.load(session.data.unpack("m*").first)
+    else
+      nil
+    end
+  end
+
 
 end

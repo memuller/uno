@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before :all do
-    User.delete_all
+    User.delete_all and ActionDispatch::Session::UnoStore::Session.delete_all
   end
   describe "should have default attributes:" do
     it "email an e-mail" do
@@ -104,5 +104,40 @@ describe User do
       end
     end
   end
+
+  describe "session relastionships" do
+    it "should have a session method" do
+      User.make.should respond_to :session
+    end
+    describe "its sessions method" do
+      it "should exist" do
+        User.should respond_to :sessions
+      end
+      it "should point to ActionDipatch::Session::UnoStore" do
+        User.sessions.should == ActionDispatch::Session::UnoStore::Session
+      end
+    end
+
+    context "user has a session" do
+      before :all do
+        @user = User.make!
+        @session = User.sessions.create! :user_id => @user.id
+      end
+
+      it "should not be nill" do
+        @user.session.should_not be_nil
+      end
+
+      it "should be an hash of session data" do
+        @user.session.should be_a_kind_of Hash
+      end
+    end
+    context "user has no session" do
+      it "should return nil" do
+        User.make.session.should be_nil
+      end
+    end
+  end
+
 
 end
