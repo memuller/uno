@@ -12,7 +12,13 @@ module ActionDispatch
 
         field :data, :type => String, :default => [Marshal.dump({})].pack("m*")
 
+        field :user_id, :type => BSON::ObjectId
         index :updated_at
+        index :user_id
+
+        def user
+          User.find(self.user_id)
+        end
       end
 
       # The class used for session storage.
@@ -32,6 +38,7 @@ module ActionDispatch
         def set_session(env, sid, session_data)
           record = get_session_model(env, sid)
           record.data = pack(session_data)
+          record.user_id = session_data['user_id']
 
           # Rack spec dictates that set_session should return true or false
           # depending on whether or not the session was saved or not.
