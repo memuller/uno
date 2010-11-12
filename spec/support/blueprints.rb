@@ -14,7 +14,3 @@ User.blueprint do
   password_confirmation {'password'}
 end
 
-
-Session.blueprint do
-  # Attributes here
-end
