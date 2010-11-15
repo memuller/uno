@@ -1,0 +1,3 @@
+[submodule "deploy"]
+	path = deploy
+	url = deploy.cancaonova.com:bare/deployer
