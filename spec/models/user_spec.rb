@@ -116,60 +116,84 @@ describe User do
       it "should point to ActionDipatch::Session::UnoStore" do
         User.sessions.should == ActionDispatch::Session::UnoStore::Session
       end
+    end
       
-      describe "its session read method" do
-        it "should exist" do
-          User.make.should respond_to :session
-        end
-        context "when user has a session" do
+    describe "its session read method" do
+      it "should exist" do
+        User.make.should respond_to :session
+      end
+      context "when user has a session" do
 
-          it "should not be nill" do
-            @user.session.should_not be_nil
-          end
-
-          it "should be an hash of session data" do
-            @user.session.should be_a_kind_of Hash
-          end
+        it "should not be nill" do
+          @user.session.should_not be_nil
         end
 
-        context "when user has no session" do
-          it "should return nil" do
-            User.make.session.should be_nil
+        it "should be an hash of session data" do
+          @user.session.should be_a_kind_of Hash
+        end
+      end
+
+      context "when user has no session" do
+        it "should return nil" do
+          User.make.session.should be_nil
+        end
+      end
+    end
+
+    describe "its session write method" do
+      it "should exist" do
+        User.make.should respond_to :session=
+      end
+
+      it "should receive an argument" do
+        lambda{ User.make.call('session=') }.should raise_error
+        lambda{ User.make.session = 'arg' }.should_not raise_error
+      end
+
+      context "when there is a session" do
+        it "should write the hash passed as arg to the session" do
+          @user.session = {'test' => 'testing stuff'}
+          @user.session.should include({'test' => 'testing stuff'})
+        end
+
+        describe "it should never overwrite the user_id" do
+          it "should append the user it to the write" do
+            @user.session = {'k' => 'v'}
+            @user.session['user_id'].should == @user.id
+            @user.session['k'].should == 'v'
           end
         end
       end
 
-      describe "its session write method" do
-
-        it "should exist" do
-          User.make.should respond_to :session=
+      context "when there is no session" do
+        it "should return nil" do
+          User.make.session = {'k' => 'v'}
         end
-        it "should receive an argument" do
-          lambda{ User.make.call('session=') }.should raise_error
-          lambda{ User.make.session = 'arg' }.should_not raise_error
-        end
-        context "when there is a session" do
-          it "should write the hash passed as arg to the session" do
-            @user.session = {'test' => 'testing stuff'}
-            @user.session.should include({'test' => 'testing stuff'})
-          end
-          describe "it should never overwrite the user_id" do
-            it "should append the user it to the write" do
-              @user.session = {'k' => 'v'}
-              @user.session['user_id'].should == @user.id
-              @user.session['k'].should == 'v'
-            end
-          end
-        end
-
-        context "when there is no session" do
-          it "should return nil" do
-            User.make.session = {'k' => 'v'}
-          end
-        end
-
       end
-            
+
+    end
+
+    describe "session_append" do
+      it "should exist" do
+        User.make.should respond_to :session_append
+      end
+      it "should merge the existing session with some new values" do
+        @user.session = {'it' => 'should remain'}
+        @user.session_append( {'this' => 'is new'} )
+        @user.session.should include( {'it' => 'should remain'} )
+        @user.session.should include( {'this' => 'is new'} )
+      end
+    end
+
+    describe "session destruction - session_destroy!" do
+      it "should exist" do
+        User.make.should respond_to :session_destroy!
+      end
+
+      it "should completly wipeout the session" do
+        @user.session_destroy!
+        @user.session.should be_nil
+      end
     end
   end
 

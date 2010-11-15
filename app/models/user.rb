@@ -77,5 +77,19 @@ class User
     end
   end
 
+  def session_append arg
+    if session = find_session
+      arg.merge! self.session
+      self.session = arg
+    end
+  end
+
+  def session_destroy!
+    if session = find_session
+      self.session = {}
+      session.update_attributes(:user_id => nil)
+    end
+  end
+
 
 end
