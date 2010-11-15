@@ -219,6 +219,19 @@ describe User do
         User.make.online.should be false
       end
     end
+
+  end
+
+  context "logging in" do
+    it "should have a login method"
+    it "should write the user id to the session"
+    it "should set online to true"
+  end
+
+  context "logging out" do
+    it "should have a loggout method"
+    it "should wipeout the session"
+    it "should set online to false"
   end
 
 
