@@ -17,6 +17,13 @@ RSpec.configure do |config|
   # config.mock_with :rr
   config.mock_with :rspec
 
+  # Cleans up database before all tests are run.
+  # skips system collection.
+  config.before :all do
+    Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+  end
+
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   #config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

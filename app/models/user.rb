@@ -9,10 +9,14 @@ class User
   attr_accessor :password, :password_confirmation
   attr_accessor :full_name
 
+  cattr_accessor :current
+  @@current = nil
+
   validates :email, :presence => true, :uniqueness => true, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/ }
   validate :password_checks
   
   before_save :break_name!, :hash_password!
+
   # Checks if a password matches.
   def password_checks
     if not self.password or not self.password_confirmation
@@ -52,5 +56,40 @@ class User
     return user if user.password_match? pass
     false
   end
+
+  # Session relationships
+  def self.sessions ; ActionDispatch::Session::UnoStore::Session ; end
+
+  def find_session 
+    self.class.sessions.first(:conditions => {:user_id => self.id}) rescue nil
+  end
+
+  def session
+    if session = find_session
+      Marshal.load(session.data.unpack("m*").first)
+    end
+  end
+
+  def session= arg
+    if session = find_session
+      arg.merge!({'user_id' => self.id})
+      session.update_attributes(:data => [Marshal.dump(arg)].pack("m*"))
+    end
+  end
+
+  def session_append arg
+    if session = find_session
+      arg.merge! self.session
+      self.session = arg
+    end
+  end
+
+  def session_destroy!
+    if session = find_session
+      self.session = {}
+      session.update_attributes(:user_id => nil)
+    end
+  end
+
 
 end
