@@ -5,6 +5,7 @@ class User
   field :email, :type => String
   field :names_list, :type => Array, :default => []
   field :password_hash, :type => String
+  field :online, :type => Boolean, :default => false
 
   attr_accessor :password, :password_confirmation
   attr_accessor :full_name
@@ -14,7 +15,7 @@ class User
 
   validates :email, :presence => true, :uniqueness => true, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/ }
   validate :password_checks
-  
+
   before_save :break_name!, :hash_password!
 
   # Checks if a password matches.
@@ -28,7 +29,7 @@ class User
       self.errors.add self.password, "Password and its confirmation must match"
     end
   end
-  
+
   # Name stuff
   def name ; self.names_list[0] ; end
   def last_name ; self.names_list[-1] ; end
@@ -39,7 +40,7 @@ class User
       self.names_list = self.full_name.strip.split(' ')
     end
   end
-  
+
   # Authentication methods
   def hash_password!
     if self.password
@@ -60,7 +61,7 @@ class User
   # Session relationships
   def self.sessions ; ActionDispatch::Session::UnoStore::Session ; end
 
-  def find_session 
+  def find_session
     self.class.sessions.first(:conditions => {:user_id => self.id}) rescue nil
   end
 
@@ -84,12 +85,24 @@ class User
     end
   end
 
-  def session_destroy!
+  def session_destroy! controller
     if session = find_session
       self.session = {}
       session.update_attributes(:user_id => nil)
+      self.update_attributes(:online => false)
     end
   end
 
+  def session_create controller
+    raise ArgumentError unless controller.session.respond_to? '[]'
+    self.session = controller.session
+
+    self.update_attributes(:online => true)
+
+  end
+
+
+
 
 end
+

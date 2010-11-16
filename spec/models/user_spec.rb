@@ -191,7 +191,8 @@ describe User do
       end
 
       it "should completly wipeout the session" do
-        @user.session_destroy!
+        controller = "" and controller.stub!(:session).and_return({})
+        @user.session_destroy! controller
         @user.session.should be_nil
       end
     end
@@ -221,17 +222,47 @@ describe User do
     end
 
   end
+  describe "session creation and destruction" do
 
-  context "logging in" do
-    it "should have a login method"
-    it "should write the user id to the session"
-    it "should set online to true"
-  end
+    before :each do
+      @user = User.make!
+      @session = User.sessions.create!({:user_id => @user.id})
+      @user.session = ({'random' => 'data', 'just' => 'filling it'})
+      @controller = 'controller' and @controller.stub!(:session).and_return({})
+    end
 
-  context "logging out" do
-    it "should have a loggout method"
-    it "should wipeout the session"
-    it "should set online to false"
+    context "logging in" do
+      it "should have a session_create method" do
+        User.make.should respond_to :session_create
+      end
+
+      it "should receive a controller" do
+        lambda{User.make.session_create}.should raise_error ArgumentError
+        lambda{User.make.session_create(@controller)}.should_not raise_error
+      end
+
+      it "should set online to true" do
+        @user.session_create @controller
+        @user.online.should be true
+      end
+
+    end
+
+    context "logging out" do
+      it "should have a session_destroy method" do
+        User.make.should respond_to :session_destroy!
+      end
+
+      it "should wipeout the session" do
+        @user.session_destroy! @controller
+        @user.session.should be nil
+      end
+
+      it "should set online to false" do
+        @user.session_destroy! @controller
+        @user.online.should be false
+      end
+    end
   end
 
 
