@@ -7,13 +7,11 @@ feature "Create User", %q{
 } do
 
   before :all do
-    @mail = 'test@testing.com'
-    @pass = 'my pass'
-    @wrong_pass = 'not my pass'
+    @mail = 'test@testing.com' and @pass = 'my pass'
     @user = User.make!(:email => @mail)
   end
 
-  scenario "Susccessfully creating an account" do
+  scenario "Successfully creating an account" do
     visit '/users/new'
     fill_in 'user_email', :with => @mail
     fill_in 'user_password', :with => @pass
@@ -21,12 +19,13 @@ feature "Create User", %q{
 
     User.should_receive(:new).with({'email' => @mail, 'password' => @pass, 'password_confirmation' => @pass}).and_return(@user)
 
-    User.should_receive(:find).and_return(@user)
+    User.should_receive(:find).with(@user.id.to_s).and_return(@user)
+
     click_button 'Save'
-    
-    page.current_path.should == "/users/#{user.id}"
+
+    page.current_path.should == "/users/#{@user.id}"
     page.should have_content @mail
   end
 
-
 end
+
