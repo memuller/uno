@@ -24,8 +24,9 @@ gem "haml-rails"
 gem 'autotest'
 
 # Mongrel
-gem 'mongrel', '>=1.2.0.pre2'
-
+#gem 'mongrel', '>=1.2.0.pre2'
+# Thin
+gem 'thin'
 
 group :development, :test do
   # Machinist2 and machinist-mongo. Do not unlock those versions
