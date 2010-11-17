@@ -1,0 +1,11 @@
+- if current_user
+  Welcome
+  = link_to current_user.name, user_path(current_user)
+  .options
+    = link_to "Logout", destroy_session_path
+- else
+  You are not logged in.
+  .options
+    = link_to "login", new_session_path
+    = " or "
+    = link_to "create an account", new_user_path 
