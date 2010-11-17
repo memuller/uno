@@ -20,4 +20,8 @@ class SessionsController < ApplicationController
     flash[:notice] = 'You have logged out.'
     redirect_back_or_to_root
   end
+
+  def bar
+    render :partial => 'sessions/bar'
+  end
 end

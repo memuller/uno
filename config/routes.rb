@@ -8,6 +8,8 @@ Uno::Application.routes.draw do
   match '/logout' => 'sessions#destroy', :as => :destroy_session
   match '/password_reset' => 'users#password_reset' , :as => :password_reset
 
+  match '/bar' => 'sessions#bar', :as => :bar
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
