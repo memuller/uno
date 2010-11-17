@@ -62,6 +62,9 @@ describe User do
         it "last_name should return the last name" do
           @user.last_name == 'Last'
         end
+        it "name shoud return the email if no name is given" do
+          User.make(:email => 'test@testing.com').name.should == 'test@testing.com'
+        end
       end
     end
 

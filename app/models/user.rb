@@ -31,7 +31,7 @@ class User
   end
 
   # Name stuff
-  def name ; self.names_list[0] ; end
+  def name ; ( self.names_list[0] || self.email ); end
   def last_name ; self.names_list[-1] ; end
   def short_name ; "#{self.name} #{self.last_name}" ; end
   def long_name ; self.names_list * ' ' ; end
