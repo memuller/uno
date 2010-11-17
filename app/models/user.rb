@@ -95,8 +95,7 @@ class User
 
   def session_create controller
     raise ArgumentError unless controller.session.respond_to? '[]'
-    self.session = controller.session
-
+    controller.session[:user_id] = self.id
     self.update_attributes(:online => true)
 
   end
