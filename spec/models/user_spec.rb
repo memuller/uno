@@ -78,6 +78,39 @@ describe User do
       end
     end
 
+    describe "gender" do
+      it "should exist" do
+        User.make.should respond_to :gender
+      end
+
+      it "should accept only M and F as values" do
+        User.make(:gender => 'M').should be_valid
+        User.make(:gender => 'F').should be_valid
+        User.make(:gender => 'something else').should_not be_valid
+      end
+
+      it "should have no default" do
+        User.new.gender.should be_nil
+      end
+
+      describe "its shorthands" do
+        it "should have a male? method that asserts if the user is male" do
+          User.make(:gender => 'F').should_not be_male
+          User.make(:gender => 'M').should be_male
+        end
+
+        it "should have a female? method that asserts if the user is female" do
+          User.make(:gender => 'M').should_not be_female
+          User.make(:gender => 'F').should be_female
+        end
+
+        it "those shorthands should return nil when there's no gender defined" do
+          User.new.male?.should be_nil
+          User.new.female?.should be_nil
+        end
+      end
+    end
+
     # Pending: Sex, Location, etc
     # Pending: @@profile_fields
 

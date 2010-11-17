@@ -4,6 +4,8 @@ class User
 
   field :email, :type => String
   field :names_list, :type => Array, :default => []
+  field :gender, :type => String
+
   field :password_hash, :type => String
   field :online, :type => Boolean, :default => false
 
@@ -12,8 +14,11 @@ class User
 
   cattr_accessor :current, :profile_fields
   @@current = nil
-  @@profile_fields = %w(full_name gender location bio)
 
+  @@profile_fields = %w(full_name gender location bio)
+  
+  validates :gender, :inclusion => {:in => ['F', 'M']}, :unless => Proc.new{|u| u.gender.nil?}
+  field :gender, :type => String
   validates :email, :presence => true, :uniqueness => true, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/ }
   validate :password_checks
 
@@ -41,6 +46,10 @@ class User
       self.names_list = self.full_name.strip.split(' ')
     end
   end
+
+  # Gender
+  def male? ; self.gender == 'M' if self.gender; end
+  def female? ; self.gender == 'F' if self.gender; end
 
   # Authentication methods
   def hash_password!
