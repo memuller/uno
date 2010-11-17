@@ -36,6 +36,16 @@ describe User do
   end
 
   context "basic profile info" do
+    describe "profile control" do
+      it "should have a profile_fields property" do
+        User.should respond_to :profile_fields
+      end
+      it "should have full_name, location, sex and bio" do
+        %w(full_name location sex bio).each do |f|
+          User.profile_fields.should include f
+        end
+      end
+    end
     describe "names" do
       it "should have full_name as an array" do
         User.new.names_list.should be_a_kind_of Array
