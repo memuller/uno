@@ -111,8 +111,17 @@ describe User do
       end
     end
 
-    # Pending: Sex, Location, etc
-    # Pending: @@profile_fields
+    describe "location" do
+      it "should exist" do
+        User.make.should respond_to :location
+      end
+      it "default to nil" do
+        User.new.location.should be_nil
+      end
+      it "should be a string" do
+        User.fields['location'].type.should be String
+      end
+    end
 
   end
 

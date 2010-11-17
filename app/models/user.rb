@@ -5,6 +5,7 @@ class User
   field :email, :type => String
   field :names_list, :type => Array, :default => []
   field :gender, :type => String
+  field :location, :type => String
 
   field :password_hash, :type => String
   field :online, :type => Boolean, :default => false
