@@ -7,3 +7,7 @@
     = f.password_field :password
   .actions
     = f.submit "Login"
+
+.options
+  = link_to('Create a new account', new_user_path)
+  = link_to('I forgot my password', password_reset_path)
