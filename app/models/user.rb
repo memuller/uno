@@ -16,7 +16,11 @@ class User
   cattr_accessor :current, :profile_fields
   @@current = nil
 
-  @@profile_fields = %w(full_name gender location bio)
+  @@profile_fields = {  :full_name => {:input_type => :text, :setter => :full_name, :getter => :long_name},  
+                        :gender => {:input_type => :radio},
+                        :location => {},
+                        :bio => {}
+  }
   
   validates :gender, :inclusion => {:in => ['F', 'M']}, :unless => Proc.new{|u| u.gender.nil?}
   validates :email, :presence => true, :uniqueness => true, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/ }

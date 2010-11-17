@@ -42,7 +42,7 @@ describe User do
       end
       it "should have full_name, location, gender and bio" do
         %w(full_name location gender bio).each do |f|
-          User.profile_fields.should include f
+          User.profile_fields[f.to_sym].should_not be_nil
         end
       end
     end
