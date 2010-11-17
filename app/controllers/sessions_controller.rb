@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
     if request.method.downcase == 'post'
       if user = User.authenticate(params[:email], params[:password])
         user.session_create(self)
+        flash[:notice] = 'You logged in sucessfully.'
         redirect_back_or_to_root
       elsif user == false
         flash[:error] = "Invalid password."
