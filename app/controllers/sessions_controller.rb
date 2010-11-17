@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    redirect_to(:action => :destroy) if current_user
     if request.method.downcase == 'post'
       if user = User.authenticate(params[:email], params[:password])
         user.session_create(self)
