@@ -87,7 +87,7 @@ class User
 
   def session_destroy! controller
     if session = find_session
-      self.session = {}
+      controller.session.clear
       session.update_attributes(:user_id => nil)
       self.update_attributes(:online => false)
     end
