@@ -16,8 +16,8 @@ class User
   cattr_accessor :current, :profile_fields
   @@current = nil
 
-  @@profile_fields = {  :full_name => {:input_type => :text, :setter => :full_name, :getter => :long_name},  
-                        :gender => {:input_type => :radio},
+  @@profile_fields = {  :full_name => {:type => :text, :setter => :full_name, :getter => :long_name},  
+                        :gender => {:type => :radio},
                         :location => {},
                         :bio => {}
   }
