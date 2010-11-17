@@ -1,8 +1,8 @@
 Uno::Application.routes.draw do
   resources :users
-  match 'login' => 'sessions#new', :as => :new_session
-  match 'logout' => 'sessions#destroy', :as => :destroy_session
-
+  match '/login' => 'sessions#new', :as => :new_session
+  match '/logout' => 'sessions#destroy', :as => :destroy_session
+  match '/password_reset' => 'users#password_reset' , :as => :password_reset
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
