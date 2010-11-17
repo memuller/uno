@@ -40,8 +40,8 @@ describe User do
       it "should have a profile_fields property" do
         User.should respond_to :profile_fields
       end
-      it "should have full_name, location, sex and bio" do
-        %w(full_name location sex bio).each do |f|
+      it "should have full_name, location, gender and bio" do
+        %w(full_name location gender bio).each do |f|
           User.profile_fields.should include f
         end
       end
