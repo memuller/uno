@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_to_root
     target = session[:return_to]
     session[:return_to] = nil
-    redirect_to target or '/'
+    redirect_to (target ||= '/')
   end
   
 
