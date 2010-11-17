@@ -18,7 +18,6 @@ class User
   @@profile_fields = %w(full_name gender location bio)
   
   validates :gender, :inclusion => {:in => ['F', 'M']}, :unless => Proc.new{|u| u.gender.nil?}
-  field :gender, :type => String
   validates :email, :presence => true, :uniqueness => true, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/ }
   validate :password_checks
 
