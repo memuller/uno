@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
   def store_location arg = '/'
     session[:return_to] = arg
   end
+
+  def redirect_back_or_to_root
+    target = session[:return_to]
+    session[:return_to] = nil
+    redirect_to target or '/'
+  end
   
 
   def not_authorized
