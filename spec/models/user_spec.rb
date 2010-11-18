@@ -33,6 +33,9 @@ describe User do
       User.make(:password => nil, :password_confirmation => nil).should_not be_valid
       User.make(:password => 'some', :password_confirmation => 'some').should be_valid
     end
+    it "should not allow empty passwords" do
+      User.make(:password => '', :password_confirmation => '').should_not be_valid
+    end
   end
 
   context "basic profile info" do

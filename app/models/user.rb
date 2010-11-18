@@ -30,12 +30,14 @@ class User
 
   # Checks if a password matches.
   def password_checks
-    if not self.password or not self.password_confirmation
-      self.password ||= ''
-      self.errors.add password, "You need to fill in password and its confirmation"
-      return false
+    if self.new_record?
+      if not self.password or not self.password_confirmation or self.password.empty?
+        self.password ||= ''
+        self.errors.add password, "You need to fill in password and its confirmation"
+        return false
+      end
     end
-    unless self.password == self.password_confirmation
+    if self.password and not self.password == self.password_confirmation
       self.errors.add self.password, "Password and its confirmation must match"
     end
   end
