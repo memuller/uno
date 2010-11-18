@@ -2,4 +2,8 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  activemodel:
+    attributes:
+      full_name:
+        description: 'Your full name. Use your real name, so other people can find you.'
+
