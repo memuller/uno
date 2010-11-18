@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def new
     redirect_to(:action => :destroy) if current_user
     if request.method.downcase == 'post'
-      if user = User.authenticate(params[:email], params[:password])
+      if user = User.authenticate(params[:session][:email], params[:session][:password])
         user.session_create(self)
         flash[:notice] = 'You logged in sucessfully.'
         redirect_back_or_to_root

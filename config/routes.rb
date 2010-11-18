@@ -1,6 +1,6 @@
 Uno::Application.routes.draw do
 
-  root :to => 'sessions#new'
+  root :to => 'users#dashboard'
 
   resources :users, :except => [:index]
 
