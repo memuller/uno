@@ -9,6 +9,8 @@ class User
 
   field :password_hash, :type => String
   field :online, :type => Boolean, :default => false
+  
+  referenced_in :client
 
   attr_accessor :password, :password_confirmation
   attr_accessor :full_name

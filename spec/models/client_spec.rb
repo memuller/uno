@@ -18,5 +18,11 @@ describe Client do
   end
 
   describe "user relationships" do
+    it "should refer to one admin" do
+      Client.make.user.should be_a_kind_of User
+    end
+    it "should require an admin" do
+      Client.make({:user => nil}).should_not be_valid
+    end
   end
 end
