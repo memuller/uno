@@ -14,3 +14,7 @@ User.blueprint do
   password_confirmation {'password'}
 end
 
+
+Client.blueprint do
+  # Attributes here
+end
