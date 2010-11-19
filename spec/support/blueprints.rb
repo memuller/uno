@@ -16,5 +16,6 @@ end
 
 
 Client.blueprint do
-  # Attributes here
+  name{ "app#{sn}"}
+  user
 end
