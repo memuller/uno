@@ -1,5 +1,7 @@
 Uno::Application.routes.draw do
 
+  resources :clients
+
   root :to => 'users#dashboard'
 
   resources :users, :except => [:index]
