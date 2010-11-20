@@ -8,4 +8,14 @@ class Client
   references_one :user
 
   validates :user, :presence => true
+  
+  before_save do |obj|
+    obj.api_key = generate_api_key
+  end
+    
+  # API keys
+  def generate_api_key
+    Digest::SHA1.hexdigest("#{Time.now.to_s}")
+  end
+    
 end
