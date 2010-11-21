@@ -42,12 +42,25 @@ describe Client do
     end
   end
 
-  describe "user relationships" do
+  describe "admin user relationships" do
     it "should refer to one admin" do
       Client.make.user.should be_a_kind_of User
     end
     it "should require an admin" do
       Client.make({:user => nil}).should_not be_valid
     end
+
+    context "setting the admin user" do
+      it "should have a admin_user_email accessor" do
+        Client.make.should respond_to :admin_user_email
+      end
+      it "should set the said user as admin when present" do
+        user = User.make!(:email => 'test@testing.com')
+        Client.make!(:admin_user_email => user.email).user.should == user
+      end
+    end
   end
+
+
+
 end
