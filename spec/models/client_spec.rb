@@ -36,6 +36,13 @@ describe Client do
       Client.make!.api_key.should_not be_empty
     end
 
+    it "should not overwrite an existing key" do
+      client = Client.make!
+      old_key = client.api_key
+      client.update_attributes!(:url => 'http://test.com')
+      client.api_key.should == old_key
+    end
+
     context "avoiding key collissions" do
       it "should re-generate the key if there's a collision"
       it "should keep re-generating until there's not a collision"
