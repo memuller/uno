@@ -16,7 +16,7 @@ describe "clients/edit.html.haml" do
     assert_select "form", :action => client_path(@client), :method => "post" do
       assert_select "input#client_name", :name => "client[name]"
       assert_select "input#client_url", :name => "client[url]"
-      assert_select "unput#client_admin_user_email", :name => 'client[admin_user_email]'
+      assert_select "input#client_admin_user_email", :name => 'client[admin_user_email]'
     end
   end
 end
