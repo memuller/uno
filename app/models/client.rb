@@ -13,7 +13,14 @@ class Client
   
   # Sets the admin user by using its email
   before_validation do |obj|
-    obj.user = User.where(:email => obj.admin_user_email).first if obj.admin_user_email
+    if obj.admin_user_email
+      if user = User.where(:email => obj.admin_user_email).first
+        self.user = user
+      else
+        errors.add admin_user_email, "Invalid email for the admin user."
+        false
+      end
+    end
   end
 
   # Generates an api key when there isn't one

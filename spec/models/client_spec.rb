@@ -54,9 +54,21 @@ describe Client do
       it "should have a admin_user_email accessor" do
         Client.make.should respond_to :admin_user_email
       end
+
       it "should set the said user as admin when present" do
         user = User.make!(:email => 'test@testing.com')
         Client.make!(:admin_user_email => user.email).user.should == user
+      end
+
+      it "should not set if we can't find an user with this email" do
+        Client.make(:admin_user_email => 'none@exists.com').should_not be_valid
+      end
+
+      it "should fail if there's no user with this email, even if the previous one was valid" do
+        user = User.make!
+        client = Client.make!(:admin_user_email => user.email)
+        client.admin_user_email = 'none@exists.com'
+        client.should_not be_valid
       end
     end
   end
