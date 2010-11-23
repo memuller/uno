@@ -37,7 +37,7 @@ group :development, :test do
   gem 'rspec-rails', "~> 2.0.1"
 
   # Debugger for ruby servers on 1.9
-  gem 'ruby-debug19'
+  #gem 'ruby-debug19'
 
   # Integration/acceptance tests
   gem 'steak', '>= 1.0.0.rc.1'
