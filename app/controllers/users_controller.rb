@@ -2,7 +2,11 @@ class UsersController < ApplicationController
 
 
   def dashboard
-    redirect_to @current_user
+    if @current_user
+      redirect_to @current_user
+    else
+      redirect_to new_session_path
+    end
   end
   # GET /users
   # GET /users.xml
