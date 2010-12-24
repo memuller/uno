@@ -36,8 +36,9 @@ group :development, :test do
   # Good old rspec for Rails 3
   gem 'rspec-rails', "~> 2.0.1"
 
-  # Debugger for ruby servers on 1.9
-  #gem 'ruby-debug19'
+  # Debugger for ruby servers on 1.9 or 1.8
+  gem 'ruby-debug19', :platforms => :ruby_19
+  gem 'ruby-debug', :platforms => :ruby_18
 
   # Integration/acceptance tests
   gem 'steak', '>= 1.0.0.rc.1'
