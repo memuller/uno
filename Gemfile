@@ -35,6 +35,7 @@ group :development, :test do
 
   # Good old rspec for Rails 3
   gem 'rspec-rails', "~> 2.0.1"
+  gem 'autotest-notification'
 
   # Debugger for ruby servers on 1.9 or 1.8
   gem 'ruby-debug19', :platforms => :ruby_19
