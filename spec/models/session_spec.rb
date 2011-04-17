@@ -14,12 +14,4 @@ describe ActionDispatch::Session::UnoStore::Session do
       @klass.create!({:user_id => @user.id}).user.should == @user
     end
   end
-  describe "its named scopes" do
-    describe "its recent scope" do
-      it "should exist"
-      it "should return sessions changed on the last 10 minutes"
-      it "should accept a seconds argument"
-      it "should return sessions changed on the seconds argument"
-    end
-  end
 end
