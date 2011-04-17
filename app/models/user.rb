@@ -34,7 +34,7 @@ class User
   def password_checks
     if self.new_record?
       if not self.password or not self.password_confirmation or self.password.empty?
-        self.password ||= ''
+        self.password = 'please fill it in' if not self.password or self.password.empty?
         self.errors.add password, "You need to fill in password and its confirmation"
         return false
       end
