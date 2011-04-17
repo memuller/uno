@@ -19,6 +19,8 @@ module ActionDispatch
         def user
           User.find(self.user_id)
         end
+
+        scope :recent, where(:updated_at.gt => (Time.now - 10 .minutes))
       end
 
       # The class used for session storage.
@@ -79,4 +81,3 @@ end
 
 Uno::Application.config.session_store :cookie_store, :key => '_uno_session'
 Uno::Application.config.session_store :uno_store
-
