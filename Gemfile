@@ -44,5 +44,6 @@ group :development, :test do
   # Integration/acceptance tests
   gem 'steak', '>= 1.0.0.rc.1'
   gem 'capybara'
+  gem 'cucumber'
 
 end
