@@ -31,4 +31,11 @@ class SessionsController < ApplicationController
   def show
     render :text => session.to_json
   end
+
+  def update
+    params.each do |k, v|
+      session[k] = v
+    end
+    render :text => 'OK'
+  end
 end
