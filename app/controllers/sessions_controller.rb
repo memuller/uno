@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       end
       render :text => 'OK' , :status => 201
     else
-      api_call_not_authorized 401
+      api_call_not_authorized 406
     end
   end
 end

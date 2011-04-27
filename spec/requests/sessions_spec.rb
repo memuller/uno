@@ -25,9 +25,9 @@ describe "Sessions" do
       JSON(response.body)['new_info'].should == 'new_value'
     end
 
-    it "should fail to update inexistent sessions (401 instead)" do
+    it "should fail to update inexistent sessions (406 instead)" do
       put sessions_path, :new_info => 'new_value'
-      response.status.should == 401
+      response.status.should == 406
     end
   end
 end
