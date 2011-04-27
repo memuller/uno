@@ -56,7 +56,7 @@ class UsersController < ApplicationController
         
         @user.session_create(self)
 
-        format.html { redirect_to(@user, :notice => 'User was successfully created.') }
+        format.html { redirect_back_or_to_root }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }

@@ -40,12 +40,6 @@ describe UsersController do
         post :create, :user => {'these' => 'params'}
         assigns(:user).should be(mock_user)
       end
-
-      it "redirects to the created user" do
-        User.stub(:new) { mock_user(:save => true) }
-        post :create, :user => {}
-        response.should redirect_to(user_url(mock_user))
-      end
     end
 
     describe "with invalid params" do
