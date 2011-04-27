@@ -29,13 +29,21 @@ class SessionsController < ApplicationController
   end
 
   def show
-    render :text => session.to_json
+    if current_user
+      render :text => session.to_json
+    else
+      api_call_not_authorized 404
+    end
   end
 
   def update
-    params.each do |k, v|
-      session[k] = v
+    if current_user
+      params.each do |k, v|
+        session[k] = v
+      end
+      render :text => 'OK' , :status => 201
+    else
+      api_call_not_authorized 401
     end
-    render :text => 'OK'
   end
 end

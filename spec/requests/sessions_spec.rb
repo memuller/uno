@@ -12,11 +12,22 @@ describe "Sessions" do
       JSON(response.body)['user_id'].should == @user.id.to_s
     end
 
+    it "should not get sessions information when not logged in (404 instead)" do
+      get sessions_path
+      response.status.should == 404
+    end
+
     it "should properly update session information" do
       post sessions_path , :session => {:email => @user.email, :password => 'testing'}
       put sessions_path, :new_info => 'new_value'
+      response.status.should be 201
       get sessions_path
       JSON(response.body)['new_info'].should == 'new_value'
+    end
+
+    it "should fail to update inexistent sessions (401 instead)" do
+      put sessions_path, :new_info => 'new_value'
+      response.status.should == 401
     end
   end
 end
