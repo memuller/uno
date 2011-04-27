@@ -5,6 +5,7 @@ Uno::Application.routes.draw do
   root :to => 'users#dashboard'
 
   resources :users, :except => [:index]
+  resource :sessions
 
   match '/login' => 'sessions#new', :as => :new_session
   match '/logout' => 'sessions#destroy', :as => :destroy_session
