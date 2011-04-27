@@ -27,4 +27,8 @@ class SessionsController < ApplicationController
   def bar
     render :partial => 'sessions/bar'
   end
+
+  def show
+    render :text => session.to_json
+  end
 end
