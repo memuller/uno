@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :current_user
 
-  helper_method :current_user
+  helper_method :current_user, :not_authorized, :api_call_not_authorized
 
   def current_user
     @current_user ||= login_from_session
@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     flash[:notice] = 'Please login.'
     store_location
     redirect_to new_session_path
+  end
+
+  def api_call_not_authorized(status = 401, text="")
+    render :text => text, :status => status 
   end
 
 end
