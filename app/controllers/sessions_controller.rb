@@ -1,17 +1,21 @@
 class SessionsController < ApplicationController
 
-  def new
-    if request.method.downcase == 'post'
-      if user = User.authenticate(params[:session][:email], params[:session][:password])
-        user.session_create(self)
-        flash[:notice] = 'You logged in sucessfully.'
-        redirect_back_or_to_root
-      elsif user == false
-        flash[:error] = "Invalid password."
-      else
-        flash[:error] = "It appears you don't have an account yet."
-      end
+  def create
+    if user = User.authenticate(params[:session][:email], params[:session][:password])
+      user.session_create(self)
+      flash[:notice] = 'You logged in sucessfully.'
+      redirect_back_or_to_root
+    elsif user == false
+      flash[:error] = "Invalid password."
+      redirect_to :new_session
+    else
+      flash[:error] = "It appears you don't have an account yet."
+      redirect_to :new_user
     end
+  end
+
+  def new
+
   end
 
   def destroy
