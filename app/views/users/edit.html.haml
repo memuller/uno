@@ -2,7 +2,7 @@
 
 = form_for @current_user  do |f|
   - User.profile_fields.each do |k,v|
-    = profile_field k, v
+    = profile_field k
 
   = f.submit
 
