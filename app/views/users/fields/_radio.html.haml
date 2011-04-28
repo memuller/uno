@@ -1,0 +1,7 @@
+.field
+  = label :user, field
+  - values.each do |option|
+    = radio_button :user, :gender, option[0]
+    = option[1]
+  .description
+    = t "activemodel.attributes.#{field}.description"

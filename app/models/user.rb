@@ -9,7 +9,7 @@ class User
 
   field :password_hash, :type => String
   field :online, :type => Boolean, :default => false
-  
+  field :bio
   referenced_in :client
 
   attr_accessor :password, :password_confirmation
@@ -18,10 +18,10 @@ class User
   cattr_accessor :current, :profile_fields
   @@current = nil
 
-  @@profile_fields = {  :full_name => {:type => :text, :setter => :full_name, :getter => :long_name},  
-                        :gender => {:type => :radio},
+  @@profile_fields = {  :full_name => {:setter => :full_name, :getter => :long_name},  
+                        :gender => {:type => :radio, :values => [['M', 'Male'], ['F', 'Female']]},
                         :location => {},
-                        :bio => {}
+                        :bio => {:type => :memo}
   }
   
   validates :gender, :inclusion => {:in => ['F', 'M']}, :unless => Proc.new{|u| u.gender.nil?}
