@@ -1,0 +1,6 @@
+- height ||= 3 and width ||= 45
+.field
+  = label :user, field
+  = text_area :user, field_setter, :value => value, :cols => width, :rows => height
+  .description
+    = t "activemodel.attributes.#{field}.description"
