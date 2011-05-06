@@ -4,6 +4,10 @@
 en:
   activemodel:
     attributes:
+      user:
+        full_name:
+        bio: 
+      bio:
+        description:
       full_name:
-        description: 'Your full name. Use your real name, so other people can find you.'
-
+        description: your full name
