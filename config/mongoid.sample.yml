@@ -8,6 +8,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  database: muller_ped
   database: uno_development
 
 test:
